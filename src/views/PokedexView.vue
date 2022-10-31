@@ -13,38 +13,37 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(PokedexView, index) in pokemones"
-          :key="index"
-          :num="PokedexView.num"
-          :name="PokedexView.name"
-          :img="PokedexView.img"
-          :weaknesses="PokedexView.weaknesses"
-          :nextEvolution="PokedexView.next_evolution"
-        >
+        <tr v-for="(PokedeView, index) in pokemones" :key="index">
           <td>
-            {{ num }}
+            {{ PokedeView.num }}
           </td>
           <td>
-            {{ name }}
+            {{ PokedeView.name }}
           </td>
           <td>
-            <img v-bind:src="img" alt="" />
+            <img v-bind:src="PokedeView.img" alt="" />
             <!-- La directiva v-bind permite enlazar (bindear) una variable 
                                                                   de Vue con un atributo específico de una etiqueta HTML.-->
           </td>
           <td>
             <img
-              v-for="(weaknesse, indice) in weaknesses"
+              v-for="(weaknesse, indice) in PokedeView.weaknesses"
               width="50"
               height="50"
               :key="indice"
-              :src="typeToIcon(weaknesses)"
+              :src="typeToIcon(weaknesse)"
               alt=""
             />
           </td>
           <td>
-            {{ pokemones[index]["next_evolution"] }}
+            <img
+              v-for="(evolution, indice) in PokedeView.next_evolution"
+              width="50"
+              height="50"
+              :key="indice"
+              :src="pokemonToImage(evolution)"
+              alt=""
+            />
           </td>
         </tr>
       </tbody>
@@ -56,7 +55,6 @@
 import { pokemon } from "../datasets/pokemon.json";
 export default {
   name: "PokedexView",
-  props: ["num", "name", "img", "weaknesses", "nextEvolution"],
   data() {
     return {
       pokemones: pokemon,
@@ -70,9 +68,7 @@ export default {
       return "src/assets/icons/" + weaknesses.toLowerCase() + ".svg";
     },
     pokemonToImage(PokemonEvolution) {
-      return pokemon.find(
-        (PokedexView) => PokedexView.num == PokemonEvolution.num
-      ).img;
+      return pokemon.find((pokemon) => pokemon.num == PokemonEvolution.num).img;
     },
   },
 };
