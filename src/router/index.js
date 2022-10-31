@@ -23,12 +23,11 @@ const router = createRouter({
       component: () => import("../views/LoginView.vue"),
     },
     {
-      path:"/pokedex",
-      name:"Pokedex",
+      path: "/pokedex",
+      name: "Pokedex",
       component: () => import("../views/PokedexView.vue"),
     },
   ],
 });
 
 export default router;
-
